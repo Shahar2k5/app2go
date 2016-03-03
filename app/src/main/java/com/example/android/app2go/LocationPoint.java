@@ -1,9 +1,11 @@
 package com.example.android.app2go;
 
+import java.io.Serializable;
+
 /**
  * Created by shaharbarsheshet on 03/03/2016.
  */
-public class LocationPoint {
+public class LocationPoint implements Serializable {
 
     private String source;
     private String destination;

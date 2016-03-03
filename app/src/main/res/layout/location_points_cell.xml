@@ -10,7 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        card_view:cardElevation="4dp">
+        android:layout_margin="4dp"
+        card_view:cardElevation="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,14 +42,14 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/bottomLineStart"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/topLineStart"
                     android:layout_toLeftOf="@+id/iconStart"
                     android:text="bottom"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 
@@ -77,14 +78,14 @@
                     android:textSize="16sp" />
 
                 <TextView
-                    android:visibility="gone"
                     android:id="@+id/bottomLineEnd"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/topLineEnd"
                     android:layout_toLeftOf="@+id/iconEnd"
                     android:text="bottom"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

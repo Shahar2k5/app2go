@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.example.android.app2go.ChoosePlacesActivity">
 
     <fragment
@@ -26,6 +27,8 @@
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
         android:clickable="true"
+        app:elevation="8dp"
+        app:backgroundTint="@color/mdc_blue_A400"
         android:src="@drawable/ic_done_white_48dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true" />

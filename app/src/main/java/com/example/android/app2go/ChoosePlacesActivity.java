@@ -74,7 +74,6 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 .build();
 
         startNavigationBtn = (FloatingActionButton) findViewById(R.id.startNavigationBtn);
-        startNavigationBtn.setBackgroundTintList(getResources().getColorStateList(R.color.fabColor));
 
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
