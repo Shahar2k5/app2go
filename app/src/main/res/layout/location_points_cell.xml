@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <!-- A CardView that contains a TextView -->
+
+    <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        card_view:cardElevation="4dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:id="@+id/iconStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_place_white_24dp" />
+
+                <TextView
+                    android:id="@+id/topLineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/iconStart"
+                    android:text="top"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bottomLineStart"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/topLineStart"
+                    android:layout_toLeftOf="@+id/iconStart"
+                    android:text="bottom"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp">
+
+                <ImageView
+                    android:id="@+id/iconEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="4dp"
+                    android:src="@drawable/ic_place_white_24dp" />
+
+                <TextView
+                    android:id="@+id/topLineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/iconEnd"
+                    android:text="top"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/bottomLineEnd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/topLineEnd"
+                    android:layout_toLeftOf="@+id/iconEnd"
+                    android:text="bottom"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/totalTime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:gravity="right"
+                android:text="total time" />
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>
