@@ -1,6 +1,8 @@
 package com.example.android.app2go;
 
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -31,11 +33,11 @@ public class LocationsActivity extends Activity {
         setContentView(R.layout.activity_locations);
 
         if (getIntent().getExtras() != null) {
-            Log.d(TAG,"getIntent().getExtras");
+            Log.d(TAG, "getIntent().getExtras");
             String jsonString = getIntent().getExtras().getString("json");
             parsePoints(jsonString);
         } else {
-            Log.d(TAG,"getIntent().getExtras else");
+            Log.d(TAG, "getIntent().getExtras else");
             return;
         }
 
@@ -57,11 +59,24 @@ public class LocationsActivity extends Activity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LocationsActivity.this,TravelingManagerService.class);
-                intent.putExtra("points", points);
-                startService(intent);
+                if (!isMyServiceRunning(TravelingManagerService.class)) {
+                    Intent intent = new Intent(LocationsActivity.this, TravelingManagerService.class);
+                    Route route = new Route(points);
+                    intent.putExtra("points", route);
+                    startService(intent);
+                }
             }
         });
+    }
+
+    private boolean isMyServiceRunning(Class<?> serviceClass) {
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)) {
+            if (serviceClass.getName().equals(service.service.getClassName())) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void parsePoints(String jsonString) {
