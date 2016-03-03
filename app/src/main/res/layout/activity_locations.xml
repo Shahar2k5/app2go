@@ -7,7 +7,19 @@
 
     tools:context="com.example.android.app2go.LocationsActivity">
 
+    <TextView
+        android:id="@+id/topBar"
+        android:background="#4169E1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="רשימת הנסיעות שלי"
+        android:textSize="24sp"
+        android:textColor="#f0f0f0"
+        android:gravity="center"
+        />
+
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/topBar"
         android:padding="10dp"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
