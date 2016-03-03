@@ -8,36 +8,30 @@
 
     <fragment
         android:id="@+id/place_autocomplete_fragment"
+        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:name="com.google.android.gms.location.places.ui.PlaceAutocompleteFragment" />
+        android:layout_height="wrap_content" />
 
     <fragment
         android:id="@+id/mapView"
+        android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.MapFragment"
-        android:layout_below="@+id/place_autocomplete_fragment"/>
+        android:layout_below="@+id/place_autocomplete_fragment" />
 
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/startNavigationBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
         android:clickable="true"
         app:elevation="8dp"
         app:backgroundTint="@color/mdc_blue_A400"
-        android:src="@drawable/ic_done_white_48dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true" />
-
-    <!--<TextView-->
-        <!--android:id="@+id/startNavigationBtn"-->
-        <!--android:layout_width="200dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_alignParentBottom="true"-->
-        <!--android:background="@android:color/black"/>-->
+        android:elevation="8dp"
+>
 
 </RelativeLayout>
