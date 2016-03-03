@@ -20,6 +20,12 @@ android {
     }
 }
 
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
@@ -31,4 +37,5 @@ dependencies {
 //    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.google.code.gson:gson:2.2.+'
+    compile 'com.github.quentin7b:android-location-tracker:3.2'
 }

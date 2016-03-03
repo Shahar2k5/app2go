@@ -3,7 +3,7 @@
     package="com.example.android.app2go">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -18,13 +18,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ChoosePlacesActivity"></activity>
-
-
+        <activity android:name=".ChoosePlacesActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCBoPeRyssyaeim8iOPbZ62kX0cb7Ogu18" />
+
+        <service
+            android:name=".TravelingManagerService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
