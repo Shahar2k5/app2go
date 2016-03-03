@@ -1,11 +1,11 @@
 package com.example.android.app2go;
 
-import java.io.Serializable;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -142,5 +142,9 @@ public class LocationPoint implements Serializable {
 
     public Location getDestination(Context context){
         return getLocationFromAddress(context, destination);
+    }
+
+    public Location getSource(Context context){
+        return getLocationFromAddress(context, source);
     }
 }

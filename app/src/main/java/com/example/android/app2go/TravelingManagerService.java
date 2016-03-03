@@ -1,14 +1,15 @@
 package com.example.android.app2go;
 
-import android.Manifest;
+
 import android.app.Service;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
-
+import android.Manifest;
 import java.util.List;
 
 import fr.quentinklein.slt.LocationTracker;
@@ -22,7 +23,7 @@ public class TravelingManagerService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     @Override
@@ -81,7 +82,7 @@ public class TravelingManagerService extends Service {
                     public void run() {
                         try {
                             Thread.sleep(NEXT_LOCATION_ROUTING_DELAY);
-                            openWayz(points.get(indexOfLocation));
+                            sendRoutingIntent(points.get(indexOfLocation));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -91,7 +92,14 @@ public class TravelingManagerService extends Service {
         }
     }
 
-    private void openWayz(LocationPoint locationPoint) {
-
+    private void sendRoutingIntent(LocationPoint locationPoint) {
+        Location source = locationPoint.getSource(this);
+        Location destination = locationPoint.getDestination(this);
+        String intentUrl = "http://maps.google.com/maps?saddr=" + source.getLatitude() + "," + source.getLongitude() +
+                "&daddr=" + destination.getLatitude() + "," + destination.getLongitude();
+        Intent i = new Intent(android.content.Intent.ACTION_VIEW,
+                Uri.parse(intentUrl));
+        Log.i("routing url", intentUrl);
+        startActivity(i);
     }
 }

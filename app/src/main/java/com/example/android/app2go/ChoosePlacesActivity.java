@@ -233,11 +233,6 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
             Log.i("Marshmellow", "in");
         }
 
-        /*********************
-         * *******************
-         **********************/
-        startService(new Intent(ChoosePlacesActivity.this, OverlayService.class));
-
         Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
         intent.putExtra("json", serverResponse.toString());
         startActivity(intent);
