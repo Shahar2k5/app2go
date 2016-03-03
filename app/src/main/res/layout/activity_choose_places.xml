@@ -29,9 +29,9 @@
         android:layout_gravity="bottom"
         android:layout_margin="16dp"
         android:clickable="true"
-        app:elevation="8dp"
-        app:backgroundTint="@color/mdc_blue_A400"
         android:elevation="8dp"
-/>
+        android:src="@drawable/ic_done_white_48dp"
+        app:backgroundTint="@color/mdc_blue_A400"
+        app:elevation="8dp" />
 
 </RelativeLayout>

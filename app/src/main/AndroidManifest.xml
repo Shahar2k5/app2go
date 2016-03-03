@@ -3,8 +3,7 @@
     package="com.example.android.app2go">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
     <!-- Creating Permission to receive Google Maps -->
@@ -36,8 +35,6 @@
         </activity>
 
         <activity android:name=".ChoosePlacesActivity" />
-
-        <activity android:name=".ChoosePlacesActivity"/>
         <activity android:name=".LocationsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -46,6 +43,10 @@
             </intent-filter>
 
         </activity>
+
+        <service
+            android:name=".OverlayService">
+        </service>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

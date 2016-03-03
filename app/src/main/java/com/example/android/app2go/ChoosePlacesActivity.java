@@ -1,11 +1,15 @@
 package com.example.android.app2go;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -47,12 +51,16 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
     private static final float DEFAULT_BACKOFF_MULT = 1.0f;
     private static final String URL = "http://195.28.181.78:83/api/Navigation/Complex";
 
+    private float x, y;
     private int numberOfPlaces;
     private Navigation navigation;
     private GoogleApiClient mGoogleApiClient;
     private boolean isFirstAddress;
     private JSONObject serverResponse;
+    private SimpleGestureFilter detector;
 
+
+    private OverlayView overlay;
     private GoogleMap map;
     private PlaceAutocompleteFragment autocompleteFragment;
     private FloatingActionButton startNavigationBtn;
@@ -106,8 +114,9 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 map.addMarker(marker);
 
                 numberOfPlaces++;
-                if (numberOfPlaces >= 2)
+                if (numberOfPlaces >= 2) {
                     startNavigationBtn.setVisibility(View.VISIBLE);
+                }
             }
 
             @Override
@@ -213,6 +222,22 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+        // Check if Android M or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
+                Settings.ACTION_MANAGE_OVERLAY_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+            // Show alert dialog to the user saying a separate permission is needed
+            // Launch the settings activity if the user prefers
+            Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+            startActivity(myIntent);
+            Log.i("Marshmellow", "in");
+        }
+
+        /*********************
+         * *******************
+         **********************/
+        startService(new Intent(ChoosePlacesActivity.this, OverlayService.class));
+
         Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
         intent.putExtra("json", serverResponse.toString());
         startActivity(intent);
