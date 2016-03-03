@@ -47,6 +47,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
     private static final float DEFAULT_BACKOFF_MULT = 1.0f;
     private static final String URL = "http://195.28.181.78:83/api/Navigation/Complex";
 
+    private int numberOfPlaces;
     private Navigation navigation;
     private GoogleApiClient mGoogleApiClient;
     private boolean isFirstAddress;
@@ -65,6 +66,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
         navigation.setId("0");
         isFirstAddress = true;
         serverResponse = new JSONObject();
+        numberOfPlaces = 0;
 
         mGoogleApiClient = new GoogleApiClient
                 .Builder(this)
@@ -74,7 +76,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 .build();
 
         startNavigationBtn = (FloatingActionButton) findViewById(R.id.startNavigationBtn);
-        startNavigationBtn.setBackgroundTintList(getResources().getColorStateList(R.color.fabColor));
+        startNavigationBtn.setVisibility(View.GONE);
 
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
@@ -102,7 +104,10 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 final MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude));
                 // adding marker
                 map.addMarker(marker);
-                autocompleteFragment.setText("");
+
+                numberOfPlaces++;
+                if (numberOfPlaces >= 2)
+                    startNavigationBtn.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -167,6 +172,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
         JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, json, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                Log.e("Success", response.toString());
                 long elapsedTime = System.nanoTime() - start;
                 Log.i("Time", String.valueOf(elapsedTime / 1000000000) + " Sec");
                 serverResponse = response;
@@ -179,7 +185,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 try {
-                    serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}");
+                    serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"destination\":\"Rothschild Blvd 150, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":399,\"durationText\":\"7 mins\"},{\"source\":\"Rothschild Blvd 150, Tel Aviv-Yafo, Israel\",\"destination\":\"Ibn Gabirol St 124, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":695,\"durationText\":\"12 mins\"},{\"source\":\"Ibn Gabirol St 124, Tel Aviv-Yafo, Israel\",\"destination\":\"Ben Yehuda St 153, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":513,\"durationText\":\"9 mins\"},{\"source\":\"Ben Yehuda St 153, Tel Aviv-Yafo, Israel\",\"destination\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":634,\"durationText\":\"11 mins\"}],\"totalTime\":2241}");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
