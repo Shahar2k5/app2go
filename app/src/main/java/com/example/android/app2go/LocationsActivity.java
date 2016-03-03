@@ -64,6 +64,7 @@ public class LocationsActivity extends Activity {
                     Route route = new Route(points);
                     intent.putExtra("points", route);
                     startService(intent);
+                    startService(new Intent(LocationsActivity.this, OverlayService.class));
                 }
             }
         });
