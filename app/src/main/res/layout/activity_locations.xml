@@ -8,6 +8,7 @@
     tools:context="com.example.android.app2go.LocationsActivity">
 
     <android.support.v7.widget.RecyclerView
+        android:padding="10dp"
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

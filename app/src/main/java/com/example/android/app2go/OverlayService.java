@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.TextView;
 
 /**
  * Created by baryariv1 on 03/03/2016.
@@ -24,6 +24,8 @@ public class OverlayService extends Service {
         return null;
     }
 
+    TextView textView;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -31,6 +33,8 @@ public class OverlayService extends Service {
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         chatHead = new OverlayView(this);
+        textView = (TextView) chatHead.findViewById(R.id.textView);
+        textView.setText(TravelingManagerService.lastDestination);
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -39,9 +43,6 @@ public class OverlayService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-        params.gravity = Gravity.BOTTOM | Gravity.RIGHT;
-//        params.x = 200;
-//        params.y = 200;
 
         Log.i("StartService", "Success");
         windowManager.addView(chatHead, params);
@@ -64,8 +65,10 @@ public class OverlayService extends Service {
                     case MotionEvent.ACTION_UP:
                         return true;
                     case MotionEvent.ACTION_MOVE:
-                        params.x = initialX + (int) (event.getRawX() - initialTouchX);
-                        params.y = initialY + (int) (event.getRawY() - initialTouchY);
+                        // Log.i("x", event.getRawX() + "");
+                        // Log.i("y", event.getRawY() + "");
+                        params.x = (int)(initialX +  (event.getRawX() - initialTouchX)*1.5);
+                        params.y = (int)(initialY +  (event.getRawY() - initialTouchY)*1.5);
                         windowManager.updateViewLayout(chatHead, params);
                         return true;
                 }

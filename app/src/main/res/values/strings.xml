@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">App2Go</string>
-    <!--<string name="google_app_id">trim-epigram-123908</string>-->
+    <string name="google_app_id">trim-epigram-123908</string>
 </resources>

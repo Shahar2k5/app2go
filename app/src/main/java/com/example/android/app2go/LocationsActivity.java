@@ -64,7 +64,19 @@ public class LocationsActivity extends Activity {
                     Route route = new Route(points);
                     intent.putExtra("points", route);
                     startService(intent);
-                    startService(new Intent(LocationsActivity.this, OverlayService.class));
+                   // startService(new Intent(LocationsActivity.this, OverlayService.class));
+
+                  //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                         //   checkSelfPermission(Settings.ACTION_MANAGE_OVERLAY_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+                        // Show alert dialog to the user saying a separate permission is needed
+                        // Launch the settings activity if the user prefers
+                       // Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                      //  startActivity(myIntent);
+                       // startService(new Intent(LocationsActivity.this, OverlayService.class));
+                  //  }
+                   // else{
+                        startService(new Intent(LocationsActivity.this, OverlayService.class));
+                  //  }
                 }
             }
         });

@@ -4,6 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
+    useLibrary  'org.apache.http.legacy'
 
     defaultConfig {
         applicationId "com.example.android.app2go"
@@ -17,6 +18,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
     }
 }
 
@@ -37,7 +41,6 @@ dependencies {
 //    compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.mcxiaoke.volley:library:1.0.19'
     compile 'com.google.code.gson:gson:2.2.+'
-
     compile 'com.github.quentin7b:android-location-tracker:3.2'
 
     compile 'com.android.support:design:22.2.0'
