@@ -32,6 +32,6 @@
         app:elevation="8dp"
         app:backgroundTint="@color/mdc_blue_A400"
         android:elevation="8dp"
->
+/>
 
 </RelativeLayout>
