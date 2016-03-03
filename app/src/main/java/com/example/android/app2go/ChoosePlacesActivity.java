@@ -63,7 +63,6 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                 .enableAutoManage(this, this)
                 .build();
 
-
         startNavigationBtn = (TextView) findViewById(R.id.startNavigationBtn);
         addressesTxt = (TextView) findViewById(R.id.addressesTxt);
         autocompleteFragment = (PlaceAutocompleteFragment)
@@ -72,16 +71,16 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
         autocompleteFragment.setOnPlaceSelectedListener(new PlaceSelectionListener() {
             @Override
             public void onPlaceSelected(Place place) {
-                Log.i(TAG, "Place: " + place.getName());
+                Log.i(TAG, "Place: " + place.getAddress());
                 if (isFirstAddress) {
-                    navigation.addStartAddress(place.getName().toString());
+                    navigation.addStartAddress(place.getAddress().toString());
                     isFirstAddress = false;
                 } else {
                     if (navigation.getEndAdd() != null && !navigation.getEndAdd().isEmpty()) {
                         navigation.addAddress(navigation.getEndAdd());
-                        navigation.addEndAdd(place.getName().toString());
+                        navigation.addEndAdd(place.getAddress().toString());
                     } else {
-                        navigation.addEndAdd(place.getName().toString());
+                        navigation.addEndAdd(place.getAddress().toString());
                     }
                 }
             }
@@ -164,6 +163,17 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
         };
         req.setTag("");
         req.setRetryPolicy(new DefaultRetryPolicy(5000, 3, DEFAULT_BACKOFF_MULT));
-        queue.add(req);
+        //queue.add(req);
+
+
+        //TODO: Remove and get from server
+        try {
+            serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
+        intent.putExtra("json", serverResponse.toString());
+        startActivity(intent);
     }
 }
