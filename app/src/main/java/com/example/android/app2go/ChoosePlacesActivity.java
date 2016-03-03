@@ -1,15 +1,11 @@
 package com.example.android.app2go;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -51,16 +47,12 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
     private static final float DEFAULT_BACKOFF_MULT = 1.0f;
     private static final String URL = "http://195.28.181.78:83/api/Navigation/Complex";
 
-    private float x, y;
     private int numberOfPlaces;
     private Navigation navigation;
     private GoogleApiClient mGoogleApiClient;
     private boolean isFirstAddress;
     private JSONObject serverResponse;
-    private SimpleGestureFilter detector;
 
-
-    private OverlayView overlay;
     private GoogleMap map;
     private PlaceAutocompleteFragment autocompleteFragment;
     private FloatingActionButton startNavigationBtn;
@@ -194,7 +186,7 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
             public void onErrorResponse(VolleyError error) {
                 Log.e("Error", error.toString());
                 try {
-                    serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"destination\":\"Rothschild Blvd 150, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":399,\"durationText\":\"7 mins\"},{\"source\":\"Rothschild Blvd 150, Tel Aviv-Yafo, Israel\",\"destination\":\"Ibn Gabirol St 124, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":695,\"durationText\":\"12 mins\"},{\"source\":\"Ibn Gabirol St 124, Tel Aviv-Yafo, Israel\",\"destination\":\"Ben Yehuda St 153, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":513,\"durationText\":\"9 mins\"},{\"source\":\"Ben Yehuda St 153, Tel Aviv-Yafo, Israel\",\"destination\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":634,\"durationText\":\"11 mins\"}],\"totalTime\":2241}");
+                    serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"destination\":\"Kerem HaTeimanim St 7, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":256,\"durationText\":\"4 mins\"},{\"source\":\"Kerem HaTeimanim St 7, Tel Aviv-Yafo, Israel\",\"destination\":\"דיזינגוף 171, Tel Aviv-Yafo, 6346204, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":501,\"durationText\":\"8 mins\"},{\"source\":\"דיזינגוף 171, Tel Aviv-Yafo, 6346204, Israel\",\"destination\":\"Dizengoff St 50, Tel Aviv-Yafo, 64332, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":241,\"durationText\":\"4 mins\"},{\"source\":\"Dizengoff St 50, Tel Aviv-Yafo, 64332, Israel\",\"destination\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":619,\"durationText\":\"10 mins\"}],\"totalTime\":1617}");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -218,19 +210,9 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
 
         //TODO: Remove and get from server
         try {
-            serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}");
+            serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"destination\":\"Kerem HaTeimanim St 7, Tel Aviv-Yafo, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":256,\"durationText\":\"4 mins\"},{\"source\":\"Kerem HaTeimanim St 7, Tel Aviv-Yafo, Israel\",\"destination\":\"דיזינגוף 171, Tel Aviv-Yafo, 6346204, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":501,\"durationText\":\"8 mins\"},{\"source\":\"דיזינגוף 171, Tel Aviv-Yafo, 6346204, Israel\",\"destination\":\"Dizengoff St 50, Tel Aviv-Yafo, 64332, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":241,\"durationText\":\"4 mins\"},{\"source\":\"Dizengoff St 50, Tel Aviv-Yafo, 64332, Israel\",\"destination\":\"Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":619,\"durationText\":\"10 mins\"}],\"totalTime\":1617}");
         } catch (JSONException e) {
             e.printStackTrace();
-        }
-
-        // Check if Android M or higher
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this,
-                Settings.ACTION_MANAGE_OVERLAY_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-            // Show alert dialog to the user saying a separate permission is needed
-            // Launch the settings activity if the user prefers
-            Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-            startActivity(myIntent);
-            Log.i("Marshmellow", "in");
         }
 
         Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);

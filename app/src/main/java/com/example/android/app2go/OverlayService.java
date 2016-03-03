@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
-import android.util.Log;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,6 +35,7 @@ public class OverlayService extends Service {
         chatHead = new OverlayView(this);
         textView = (TextView) chatHead.findViewById(R.id.textView);
         textView.setText(TravelingManagerService.lastDestination);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -43,8 +44,6 @@ public class OverlayService extends Service {
                 WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
                 PixelFormat.TRANSLUCENT);
 
-
-        Log.i("StartService", "Success");
         windowManager.addView(chatHead, params);
 
         chatHead.setOnTouchListener(new View.OnTouchListener() {
@@ -73,6 +72,13 @@ public class OverlayService extends Service {
                         return true;
                 }
                 return false;
+            }
+        });
+
+        chatHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

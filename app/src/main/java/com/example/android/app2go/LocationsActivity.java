@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -64,19 +66,15 @@ public class LocationsActivity extends Activity {
                     Route route = new Route(points);
                     intent.putExtra("points", route);
                     startService(intent);
-                   // startService(new Intent(LocationsActivity.this, OverlayService.class));
 
-                  //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
-                         //   checkSelfPermission(Settings.ACTION_MANAGE_OVERLAY_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
-                        // Show alert dialog to the user saying a separate permission is needed
-                        // Launch the settings activity if the user prefers
-                       // Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-                      //  startActivity(myIntent);
-                       // startService(new Intent(LocationsActivity.this, OverlayService.class));
-                  //  }
-                   // else{
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getApplicationContext())) {
+                        Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
+                        startActivity(myIntent);
                         startService(new Intent(LocationsActivity.this, OverlayService.class));
-                  //  }
+                    }
+                    else{
+                        startService(new Intent(LocationsActivity.this, OverlayService.class));
+                    }
                 }
             }
         });

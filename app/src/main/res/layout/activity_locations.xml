@@ -26,6 +26,7 @@
         android:clickable="true"
         app:backgroundTintMode="src_over"
         android:src="@drawable/ic_directions_car_white_24dp"
-        app:backgroundTint="@color/mdc_blue_A400" />
+        app:backgroundTint="@color/mdc_blue_A400"
+        app:borderWidth="0dp"/>
 
 </RelativeLayout>
