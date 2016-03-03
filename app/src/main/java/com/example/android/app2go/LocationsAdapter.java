@@ -1,6 +1,6 @@
 package com.example.android.app2go;
 
-import android.graphics.Color;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.ViewHolder> {
     private ArrayList<LocationPoint> mDataset;
+    private Context mContext;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -34,14 +35,15 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LocationsAdapter(ArrayList<LocationPoint> myDataset) {
+    public LocationsAdapter(ArrayList<LocationPoint> myDataset, Context context) {
         mDataset = myDataset;
+        mContext = context;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                          int viewType) {
+                                         int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.location_points_cell, parent, false);
@@ -63,10 +65,9 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
         // - replace the contents of the view with that element
         holder.mStartPoint.setText(mDataset.get(position).getSource());
         holder.mEndPoint.setText(mDataset.get(position).getDestination());
-        holder.mStartPin.setColorFilter(Color.GREEN);
-        holder.mEndPin.setColorFilter(Color.BLUE);
+        holder.mEndPin.setColorFilter(mContext.getResources().getColor(R.color.mdc_blue_400));
+        holder.mStartPin.setColorFilter(mContext.getResources().getColor(R.color.mdc_deep_orange_500));
         holder.mTotalTime.setText(mDataset.get(position).getDurationText());
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)

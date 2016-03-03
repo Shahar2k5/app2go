@@ -90,6 +90,7 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                 Log.i(TAG, "An error occurred: " + status);
             }
         });
+
     }
 
     @Override
