@@ -34,4 +34,12 @@ local.properties
 .Spotlight-V100
 .Trashes
 ehthumbs.db
+<<<<<<< HEAD
 Thumbs.db
+=======
+Thumbs.db
+>>>>>>> origin/master
+
+.idea/workspace.xml
+
+.idea/workspace.xml
