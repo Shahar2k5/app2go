@@ -1,12 +1,14 @@
 package com.example.android.app2go;
 
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentActivity;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -23,16 +25,24 @@ import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocompleteFragment;
 import com.google.android.gms.location.places.ui.PlaceSelectionListener;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
-public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiClient.OnConnectionFailedListener {
+public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final String TAG = ChoosePlacesActivity.class.getSimpleName();
     private static final float DEFAULT_BACKOFF_MULT = 1.0f;
     private static final String URL = "http://195.28.181.78:83/api/Navigation/Complex";
@@ -42,9 +52,9 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
     private boolean isFirstAddress;
     private JSONObject serverResponse;
 
+    private GoogleMap map;
     private PlaceAutocompleteFragment autocompleteFragment;
-    private TextView startNavigationBtn;
-    private TextView addressesTxt;
+    private FloatingActionButton startNavigationBtn;
 
 
     @Override
@@ -63,8 +73,9 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                 .enableAutoManage(this, this)
                 .build();
 
-        startNavigationBtn = (TextView) findViewById(R.id.startNavigationBtn);
-        addressesTxt = (TextView) findViewById(R.id.addressesTxt);
+        startNavigationBtn = (FloatingActionButton) findViewById(R.id.startNavigationBtn);
+        startNavigationBtn.setBackgroundTintList(getResources().getColorStateList(R.color.fabColor));
+
         autocompleteFragment = (PlaceAutocompleteFragment)
                 getFragmentManager().findFragmentById(R.id.place_autocomplete_fragment);
 
@@ -83,6 +94,15 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                         navigation.addEndAdd(place.getAddress().toString());
                     }
                 }
+                // latitude and longitude
+                Barcode.GeoPoint p = getLocationFromAddress(place.getAddress().toString());
+                final double latitude = p != null ? Double.valueOf(String.valueOf(p.lat).substring(0, 6)) * 10 : 0;
+                final double longitude = p != null ? Double.valueOf(String.valueOf(p.lng).substring(0, 6)) * 10 : 0;
+                // create marker
+                final MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude));
+                // adding marker
+                map.addMarker(marker);
+                autocompleteFragment.setText("");
             }
 
             @Override
@@ -91,6 +111,20 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
             }
         });
 
+        if (map == null) {
+            map = ((MapFragment) getFragmentManager().findFragmentById(R.id.mapView)).getMap();
+
+            // check if map is created successfully or not
+            if (map != null) {
+                map.getUiSettings().setScrollGesturesEnabled(false);
+                // latitude and longitude
+                Barcode.GeoPoint p = getLocationFromAddress("Ahad Ha'Am St 9, Tel Aviv-Yafo, 65251, Israel");
+                final double latitude = p != null ? Double.valueOf(String.valueOf(p.lat).substring(0, 6)) * 10 : 0;
+                final double longitude = p != null ? Double.valueOf(String.valueOf(p.lng).substring(0, 6)) * 10 : 0;
+                CameraPosition cameraPosition = new CameraPosition.Builder().target(new LatLng(latitude, longitude)).zoom(12).build();
+                map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+            }
+        }
     }
 
     @Override
@@ -176,5 +210,29 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
         Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
         intent.putExtra("json", serverResponse.toString());
         startActivity(intent);
+    }
+
+    public Barcode.GeoPoint getLocationFromAddress(String strAddress) {
+
+        Geocoder coder = new Geocoder(this);
+        List<Address> address;
+        Barcode.GeoPoint p1 = null;
+
+        try {
+            address = coder.getFromLocationName(strAddress, 5);
+            if (address == null) {
+                return null;
+            }
+            Address location = address.get(0);
+            location.getLatitude();
+            location.getLongitude();
+
+            p1 = new Barcode.GeoPoint(1, (double) (location.getLatitude() * 1E6),
+                    (double) (location.getLongitude() * 1E6));
+
+            return p1;
+        } catch (Exception e) {
+            return null;
+        }
     }
 }
