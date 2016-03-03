@@ -1,7 +1,7 @@
 package com.example.android.app2go;
 
+import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +13,7 @@ import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 
-public class LocationsActivity extends AppCompatActivity {
+public class LocationsActivity extends Activity {
 
     private static final String TAG = LocationsActivity.class.getSimpleName();
     private RecyclerView mRecyclerView;
@@ -27,7 +27,14 @@ public class LocationsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locations);
 
-        parsePoints();
+        if (getIntent().getExtras() != null) {
+            Log.d(TAG,"getIntent().getExtras");
+            String jsonString = getIntent().getExtras().getString("json");
+            parsePoints(jsonString);
+        } else {
+            Log.d(TAG,"getIntent().getExtras else");
+            return;
+        }
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
 
@@ -40,16 +47,16 @@ public class LocationsActivity extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
-        mAdapter = new LocationsAdapter(points);
+        mAdapter = new LocationsAdapter(points, this);
         mRecyclerView.setAdapter(mAdapter);
 
     }
 
-    private void parsePoints() {
+    private void parsePoints(String jsonString) {
         points = new ArrayList<>();
         Gson gson = new GsonBuilder().create();
         JsonArray jsonArray;
-        JsonObject top = gson.fromJson(json, JsonObject.class);
+        JsonObject top = gson.fromJson(jsonString, JsonObject.class);
         jsonArray = gson.fromJson(top.getAsJsonArray("optimizedRoute"), JsonArray.class);
         for (int i = 0; i < jsonArray.size(); i++) {
             JsonObject jsonObject = (JsonObject) jsonArray.get(i);
@@ -57,9 +64,5 @@ public class LocationsActivity extends AppCompatActivity {
             Log.d(TAG, "Location point is  : " + p.toString());
             points.add(p);
         }
-
-
     }
-
-    private final String json = "{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}";
 }
