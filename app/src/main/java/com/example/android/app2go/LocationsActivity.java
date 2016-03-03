@@ -1,10 +1,13 @@
 package com.example.android.app2go;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -50,6 +53,15 @@ public class LocationsActivity extends Activity {
         mAdapter = new LocationsAdapter(points, this);
         mRecyclerView.setAdapter(mAdapter);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.startNavigationBtn);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LocationsActivity.this,TravelingManagerService.class);
+                intent.putExtra("points", points);
+                startService(intent);
+            }
+        });
     }
 
     private void parsePoints(String jsonString) {

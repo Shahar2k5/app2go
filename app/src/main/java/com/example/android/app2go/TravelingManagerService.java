@@ -28,17 +28,20 @@ public class TravelingManagerService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Log.i("LocalService", "Received start id " + startId + ": " + intent);
-        final List<LocationPoint> points = null;
+        List<LocationPoint> points = null;
+        Route route = (Route) intent.getSerializableExtra("points");
+        points = route.getPoints();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (   checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+            if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                     && checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 // You need to ask the user to enable the permissions
             } else {
+                final List<LocationPoint> finalPoints = points;
                 LocationTracker tracker = new LocationTracker(this) {
                     @Override
                     public void onLocationFound(Location location) {
                         Log.i("location", location.toString());
-                        checkLocation(points, location);
+                        checkLocation(finalPoints, location);
                     }
 
                     @Override
@@ -48,13 +51,13 @@ public class TravelingManagerService extends Service {
                 };
                 tracker.startListening();
             }
-        }
-        else{
+        } else {
+            final List<LocationPoint> finalPoints1 = points;
             LocationTracker tracker = new LocationTracker(this) {
                 @Override
                 public void onLocationFound(Location location) {
                     Log.i("location", location.toString());
-                    checkLocation(points, location);
+                    checkLocation(finalPoints1, location);
                 }
 
                 @Override
@@ -68,18 +71,18 @@ public class TravelingManagerService extends Service {
     }
 
     private void checkLocation(final List<LocationPoint> points, Location location) {
-        for(int i=0;i<points.size();i++){
+        for (int i = 0; i < points.size(); i++) {
             LocationPoint p = points.get(i);
             double distance = p.getDestination(this).distanceTo(location);
-            if(Math.abs(distance) < 50){
+            if (Math.abs(distance) < 50) {
                 final int indexOfLocation = i;
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        try{
+                        try {
                             Thread.sleep(NEXT_LOCATION_ROUTING_DELAY);
                             openWayz(points.get(indexOfLocation));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
@@ -89,6 +92,6 @@ public class TravelingManagerService extends Service {
     }
 
     private void openWayz(LocationPoint locationPoint) {
-        
+
     }
 }
