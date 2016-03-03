@@ -28,7 +28,6 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
@@ -53,6 +52,7 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_choose_places);
         navigation = new Navigation();
+        navigation.setId("0");
         isFirstAddress = true;
         serverResponse = new JSONObject();
 
@@ -137,7 +137,7 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                 Log.i("Time", String.valueOf(elapsedTime / 1000000000) + " Sec");
                 serverResponse = response;
                 Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
-                intent.putExtra("json", (Serializable) serverResponse);
+                intent.putExtra("json", serverResponse.toString());
                 startActivity(intent);
             }
         }, new Response.ErrorListener() {
@@ -150,7 +150,7 @@ public class ChoosePlacesActivity extends FragmentActivity implements GoogleApiC
                     e.printStackTrace();
                 }
                 Intent intent = new Intent(ChoosePlacesActivity.this, LocationsActivity.class);
-                intent.putExtra("json", (Serializable) serverResponse);
+                intent.putExtra("json", serverResponse.toString());
                 startActivity(intent);
             }
         }) {
