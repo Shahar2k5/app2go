@@ -28,6 +28,7 @@ import com.google.android.gms.location.places.ui.PlaceSelectionListener;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -87,7 +88,6 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 Log.i(TAG, "Place: " + place.getAddress());
                 if (isFirstAddress) {
                     navigation.addStartAddress(place.getAddress().toString());
-                    isFirstAddress = false;
                 } else {
                     if (navigation.getEndAdd() != null && !navigation.getEndAdd().isEmpty()) {
                         navigation.addAddress(navigation.getEndAdd());
@@ -102,8 +102,18 @@ public class ChoosePlacesActivity extends AppCompatActivity implements GoogleApi
                 final double longitude = p != null ? Double.valueOf(String.valueOf(p.lng).substring(0, 6)) * 10 : 0;
                 // create marker
                 final MarkerOptions marker = new MarkerOptions().position(new LatLng(latitude, longitude));
-                // adding marker
-                map.addMarker(marker);
+                // Changing marker icon
+                if (isFirstAddress) {
+                    marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps_place));
+                    // adding marker
+                    map.addMarker(marker);
+                    isFirstAddress = false;
+                } else if (!place.getAddress().equals(navigation.getStartAdd())) {
+                    marker.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_maps_place_red));
+                    // adding marker
+                    map.addMarker(marker);
+                }
+
 
                 numberOfPlaces++;
                 if (numberOfPlaces >= 2) {
