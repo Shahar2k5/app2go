@@ -4,12 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     tools:context="com.example.android.app2go.LocationsActivity">
 
     <TextView
         android:id="@+id/topBar"
-        android:background="#4169E1"
+        android:background="#3b5998"
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:text="רשימת הנסיעות שלי"
@@ -24,6 +23,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#eeeeee"
         android:scrollbars="vertical" />
 
     <android.support.design.widget.FloatingActionButton

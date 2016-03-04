@@ -12,12 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/divider"
+        android:layout_below="@id/place_autocomplete_fragment"
+        android:background="#525252"
+        android:layout_width="match_parent"
+        android:layout_height="1px" />
+
     <fragment
         android:id="@+id/mapView"
         android:name="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/place_autocomplete_fragment" />
+        android:layout_below="@+id/divider" />
 
 
     <android.support.design.widget.FloatingActionButton

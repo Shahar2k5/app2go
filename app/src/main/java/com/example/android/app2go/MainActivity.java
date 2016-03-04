@@ -16,17 +16,23 @@ public class MainActivity extends Activity {
         Intent intent = new Intent(MainActivity.this, ChoosePlacesActivity.class);
         startActivity(intent);
 
-//
-//        //TODO: Remove and get from server
-//        JSONObject serverResponse;
-//        try {
-//            serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}");
-//            Intent intent = new Intent(this, LocationsActivity.class);
-//            intent.putExtra("json", serverResponse.toString());
-//            startActivity(intent);
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
 
+       /* //TODO: Remove and get from server
+        JSONObject serverResponse;
+        try {
+            serverResponse = new JSONObject("{\"optimizedRoute\":[{\"source\":\"כרם התימנים 12, תל אביב יפו\",\"destination\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2570,\"durationText\":\"43 mins\"},{\"source\":\"גלבוע 11, כוכב יאיר צור יגאל\",\"destination\":\"רוטשילד 20, כפר סבא\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":1186,\"durationText\":\"20 mins\"},{\"source\":\"רוטשילד 20, כפר סבא\",\"destination\":\"כרם התימנים 12, תל אביב יפו\",\"endLatitude\":0,\"endLongitude\":0,\"duration\":2152,\"durationText\":\"36 mins\"}],\"totalTime\":5908}");
+            Intent intent = new Intent(this, LocationsActivity.class);
+            intent.putExtra("json", serverResponse.toString());
+            startActivity(intent);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }*/
+
+    }
+
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        stopService(new Intent(this, OverlayService.class));
     }
 }

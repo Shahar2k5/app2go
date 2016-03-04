@@ -7,101 +7,65 @@
 
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
         android:id="@+id/card_view"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_margin="5dp"
         android:background="#f0f0f0"
-        android:layout_margin="4dp"
         card_view:cardElevation="8dp">
 
         <LinearLayout
+            android:padding="7dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:textColor="#525252"
+                        android:id="@+id/topLineEnd"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="top"
+                        android:textSize="18sp" />
 
                 <ImageView
-                    android:id="@+id/iconStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:src="@drawable/ic_place_white_24dp" />
+                    android:layout_marginTop="3dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/left"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp" />
 
-                <TextView
-                    android:id="@+id/topLineStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/iconStart"
-                    android:text="top"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:layout_height="wrap_content"
+                        android:layout_width="wrap_content"
+                        android:id="@+id/topLineStart"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="0.5"
+                        android:gravity="center"
+                        android:text="top"
+                        android:textSize="18sp"
+                        android:textColor="#525252"/>
 
-                <TextView
-                    android:id="@+id/bottomLineStart"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/topLineStart"
-                    android:layout_toLeftOf="@+id/iconStart"
-                    android:text="bottom"
-                    android:textSize="14sp"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp">
-
-                <ImageView
-                    android:id="@+id/iconEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginLeft="4dp"
-                    android:src="@drawable/ic_place_white_24dp" />
-
-                <TextView
-                    android:id="@+id/topLineEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toLeftOf="@+id/iconEnd"
-                    android:text="top"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/bottomLineEnd"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/topLineEnd"
-                    android:layout_toLeftOf="@+id/iconEnd"
-                    android:text="bottom"
-                    android:textSize="12sp"
-                    android:visibility="gone" />
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/totalTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="8dp"
-                android:gravity="right"
+                android:gravity="center"
+                android:textColor="#3b5998"
                 android:text="total time" />
+
         </LinearLayout>
     </android.support.v7.widget.CardView>
 </LinearLayout>

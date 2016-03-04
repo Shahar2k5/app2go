@@ -4,7 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
-import android.util.TypedValue;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -35,7 +35,6 @@ public class OverlayService extends Service {
         chatHead = new OverlayView(this);
         textView = (TextView) chatHead.findViewById(R.id.textView);
         textView.setText(TravelingManagerService.lastDestination);
-        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
 
         final WindowManager.LayoutParams params = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.WRAP_CONTENT,
@@ -60,16 +59,16 @@ public class OverlayService extends Service {
                         initialY = params.y;
                         initialTouchX = event.getRawX();
                         initialTouchY = event.getRawY();
-                        return true;
+                        return false;
                     case MotionEvent.ACTION_UP:
-                        return true;
+                        return false;
                     case MotionEvent.ACTION_MOVE:
                         // Log.i("x", event.getRawX() + "");
                         // Log.i("y", event.getRawY() + "");
-                        params.x = (int)(initialX +  (event.getRawX() - initialTouchX)*1.5);
-                        params.y = (int)(initialY +  (event.getRawY() - initialTouchY)*1.5);
+                        params.x = (int) (initialX + (event.getRawX() - initialTouchX) * 1.5);
+                        params.y = (int) (initialY + (event.getRawY() - initialTouchY) * 1.5);
                         windowManager.updateViewLayout(chatHead, params);
-                        return true;
+                        return false;
                 }
                 return false;
             }
@@ -78,7 +77,11 @@ public class OverlayService extends Service {
         chatHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Log.i("overlay", "clicked");
+                Intent i = new Intent(OverlayService.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(i);
+                stopSelf();
             }
         });
 

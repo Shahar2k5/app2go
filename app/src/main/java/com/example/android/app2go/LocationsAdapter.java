@@ -5,7 +5,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -24,8 +23,6 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
         // each data item is just a string in this case
         public TextView mStartPoint;
         public TextView mEndPoint;
-        public ImageView mStartPin;
-        public ImageView mEndPin;
         public TextView mTotalTime;
 
         public ViewHolder(View v) {
@@ -49,8 +46,6 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
                 .inflate(R.layout.location_points_cell, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
-        vh.mStartPin = (ImageView) v.findViewById(R.id.iconStart);
-        vh.mEndPin = (ImageView) v.findViewById(R.id.iconEnd);
         vh.mStartPoint = (TextView) v.findViewById(R.id.topLineStart);
         vh.mTotalTime = (TextView) v.findViewById(R.id.totalTime);
         vh.mEndPoint = (TextView) v.findViewById(R.id.topLineEnd);
@@ -65,8 +60,6 @@ public class LocationsAdapter extends RecyclerView.Adapter<LocationsAdapter.View
         // - replace the contents of the view with that element
         holder.mStartPoint.setText(mDataset.get(position).getSource());
         holder.mEndPoint.setText(mDataset.get(position).getDestination());
-        holder.mEndPin.setColorFilter(mContext.getResources().getColor(R.color.mdc_blue_400));
-        holder.mStartPin.setColorFilter(mContext.getResources().getColor(R.color.mdc_deep_orange_500));
         holder.mTotalTime.setText(mDataset.get(position).getDurationText());
     }
 
