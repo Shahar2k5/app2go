@@ -1,3 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="/Users/baryariv1/Desktop/app2go/app/build/intermediates/transforms/instantRunSlicer/debug/jars/1/5/main_sliceb.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="3ee03f4bb91d909ecaa20feffd3eb5d4d6f88ccd">
+        <dex dex="/Users/baryariv1/Desktop/app2go/app/build/intermediates/transforms/dex/debug/folders/1000/5/main_sliceb_d79a7e37cda97a8706777b67a1776ead1d0cd7d0/classes.dex" />
+    </item>
+    <item
+        jar="/Users/baryariv1/Desktop/app2go/app/build/intermediates/transforms/instantRunSlicer/debug/jars/1/1a/dependencies.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="190e2e1506adc0223b5e71e249f138fb3f7df75b">
+        <dex dex="/Users/baryariv1/Desktop/app2go/app/build/intermediates/transforms/dex/debug/folders/1000/1a/dependencies_4cedebaba280419b7535020e7cdbfa2405fa13da/classes.dex" />
+    </item>
+
+</items>

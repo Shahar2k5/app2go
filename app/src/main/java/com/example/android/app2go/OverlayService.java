@@ -78,9 +78,10 @@ public class OverlayService extends Service {
             @Override
             public void onClick(View v) {
                 Log.i("overlay", "clicked");
-                Intent i = new Intent(OverlayService.this, MainActivity.class);
+                Intent i = new Intent(OverlayService.this, LocationsActivity.class);
                 i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(i);
+                stopService(new Intent(getApplicationContext(), TravelingManagerService.class));
                 stopSelf();
             }
         });

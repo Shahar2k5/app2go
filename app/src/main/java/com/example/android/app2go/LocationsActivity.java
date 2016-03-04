@@ -62,17 +62,17 @@ public class LocationsActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (!isMyServiceRunning(TravelingManagerService.class)) {
-                    Intent intent = new Intent(LocationsActivity.this, TravelingManagerService.class);
-                    Route route = new Route(points);
-                    intent.putExtra("points", route);
-                    startService(intent);
+
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(getApplicationContext())) {
                         Intent myIntent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
                         startActivity(myIntent);
-                        startService(new Intent(LocationsActivity.this, OverlayService.class));
                     }
                     else{
+                        Intent intent = new Intent(LocationsActivity.this, TravelingManagerService.class);
+                        Route route = new Route(points);
+                        intent.putExtra("points", route);
+                        startService(intent);
                         startService(new Intent(LocationsActivity.this, OverlayService.class));
                     }
                 }
