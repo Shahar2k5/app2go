@@ -1,10 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#525252"
+    android:onClick="openLocations"
     tools:context="com.example.android.app2go.MainActivity">
 
+    <ImageView
+        android:id="@+id/center"
+        android:src="@drawable/truck"
+        android:layout_centerInParent="true"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
 
+    <ImageView
+        android:scaleType="fitCenter"
+        android:layout_marginRight="-30dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/left_up"
+        android:src="@drawable/r"
+        android:layout_toLeftOf="@id/center"
+        android:layout_above="@id/center"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:id="@+id/left_center"
+        android:src="@drawable/t"
+        android:layout_below="@+id/left_up"
+        android:layout_marginTop="30dp"
+        android:layout_toLeftOf="@+id/center"
+        android:layout_marginRight="30dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:layout_marginRight="-30dp"
+        android:id="@+id/left_down"
+        android:src="@drawable/s"
+        android:layout_toLeftOf="@id/center"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/left_center"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:layout_marginLeft="-30dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/right_up"
+        android:src="@drawable/a"
+        android:layout_toRightOf="@id/center"
+        android:layout_above="@id/center"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:id="@+id/right_center"
+        android:src="@drawable/v"
+        android:layout_below="@+id/right_up"
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@+id/center"
+        android:layout_marginLeft="30dp"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
+
+    <ImageView
+        android:layout_marginLeft="-30dp"
+        android:id="@+id/right_down"
+        android:src="@drawable/i"
+        android:layout_toRightOf="@id/center"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/right_center"
+        android:layout_width="60dp"
+        android:layout_height="60dp" />
 
 </RelativeLayout>
